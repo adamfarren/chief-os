@@ -1,0 +1,44 @@
+# Chief of Staff — Company Context
+# Update this file with your company's information.
+# Run /chief-context to view and update interactively.
+# All other chief-* skills read from this file.
+
+company:
+  name: ""           # Your company name
+  one_liner: ""      # What the company does in one sentence
+  stage: ""          # e.g., "Series B, preparing Series C"
+
+metrics:
+  arr: ""            # Annual recurring revenue, e.g., "$15M"
+  arr_growth_yoy: "" # Year-over-year ARR growth, e.g., "85%"
+  customers: ""      # Number of customers, e.g., "120"
+  burn_rate: ""      # Monthly burn rate, e.g., "$800K/mo"
+  runway_months: ""  # Months of runway remaining, e.g., "18"
+  last_updated: ""   # ISO date, e.g., "2026-04-08"
+
+strategy:
+  annual_goals:      # Top 3-5 company goals for the year
+    - name: ""
+      dri: ""        # Directly responsible individual
+      description: ""
+
+  initiatives:       # Active cross-functional initiatives
+    - name: ""
+      dri: ""
+      status: ""     # on-track, at-risk, blocked
+      description: ""
+
+product:
+  architecture: ""   # Brief description of technical architecture
+  key_products: []   # List of product names/lines
+  differentiators: [] # What makes you different
+
+positioning:
+  competitive_lanes: []  # Who you compete against and how you win
+  key_narratives: []     # The stories you tell investors, customers, market
+
+fundraising:
+  current_round: ""          # e.g., "Series C"
+  target_amount: ""          # e.g., "$50M"
+  status: ""                 # not-started, active, term-sheets, closing, closed
+  key_metrics_for_investors: [] # Metrics that matter most to your investor audience

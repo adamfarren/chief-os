@@ -1,0 +1,48 @@
+# Test Editorial Voice Guide — Generic Sample Data
+
+editorial_voice:
+  tone: "direct, conviction-led, analytical"
+  sentence_style: "short declarative sentences. Subject-verb-object. Vary length for rhythm."
+
+  formatting:
+    preferred:
+      - "numbered lists (1/ 2/ 3/) for key points"
+      - "bold for key claims or findings"
+      - "tables for comparative data"
+    banned:
+      - "em-dashes"
+      - "bullet points in LinkedIn posts"
+      - "headers in LinkedIn posts"
+
+  banned_phrases:
+    - "flexible"
+    - "AI-first"
+    - "modern"
+    - "it's not X, it's Y"
+    - "in today's world"
+    - "at the end of the day"
+    - "leveraging"
+    - "synergy"
+
+  content_patterns:
+    - name: "Product Showcase"
+      structure: "Problem → old approach → what we built → result → strategic meaning"
+      example: "Lead with the customer problem, not the product."
+    - name: "Strategic Insight"
+      structure: "Observation → framework → evidence → implication → proof point"
+      example: "The framework must be original or specifically applied."
+    - name: "Founder Journey"
+      structure: "Specific moment → what happened → what I learned → broader principle"
+      example: "Vulnerability without self-pity. Lessons, not therapy."
+
+memo_preferences:
+  format: "always markdown (.md)"
+  max_length: "2 pages for strategy memos"
+  structure_rules:
+    - "no horizontal rules between sections"
+    - "lead with the recommendation, not the analysis"
+    - "end with specific next steps, owners, and deadlines"
+
+investor_brief_preferences:
+  rapport_flags: true
+  format: "markdown with tables"

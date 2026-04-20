@@ -1,0 +1,28 @@
+# Chief of Staff — Editorial Voice Guide
+# Update this file with the CEO's writing style and preferences.
+# Run /chief-context to view and update interactively.
+# Used by chief-memo, chief-linkedin, and other writing skills.
+
+editorial_voice:
+  tone: ""              # e.g., "direct, conviction-led, analytical"
+  sentence_style: ""    # e.g., "short declarative sentences"
+
+  formatting:
+    preferred: []       # e.g., ["numbered lists (1/ 2/ 3/)", "bold key claims"]
+    banned: []          # e.g., ["em-dashes", "bullet points in posts"]
+
+  banned_phrases: []    # e.g., ["flexible", "AI-first", "modern", "it's not X, it's Y"]
+
+  content_patterns:     # Recurring content types and how they're structured
+    - name: ""          # e.g., "Product Showcase"
+      structure: ""     # How this type of content is structured
+      example: ""       # Brief example or reference
+
+memo_preferences:
+  format: ""            # e.g., "always markdown (.md)"
+  max_length: ""        # e.g., "2 pages for strategy memos"
+  structure_rules: []   # e.g., ["no horizontal rules between sections"]
+
+investor_brief_preferences:
+  rapport_flags: true   # Always surface shared sports/athletics connections
+  format: ""            # e.g., "markdown with tables"

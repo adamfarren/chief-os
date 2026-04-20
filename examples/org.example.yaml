@@ -1,0 +1,67 @@
+# Test Organization Chart — Generic Sample Data
+
+leadership:
+  - name: "Jordan Rivera"
+    role: "CEO"
+    reports_to: "Board"
+    owns: ["Company strategy", "Fundraising", "Board management", "Key partnerships"]
+    context: "Former controller at a mid-market SaaS company. Founded Meridian Ledger after 8 years running finance ops. Runs a 5K every morning."
+
+  - name: "Marcus Webb"
+    role: "CTO"
+    reports_to: "Jordan Rivera"
+    owns: ["Engineering", "Agent SDK", "Infrastructure", "Security"]
+    context: "Ex-Google, ex-Stripe. Deep ML background. Joined pre-Series A."
+
+  - name: "Sarah Chen"
+    role: "CRO"
+    reports_to: "Jordan Rivera"
+    owns: ["Sales", "Customer Success", "Partnerships", "Enterprise expansion"]
+    context: "Former VP Sales at a $200M fintech company. Joined 6 months ago. Building the enterprise motion."
+
+  - name: "Devon Park"
+    role: "VP Operations"
+    reports_to: "Jordan Rivera"
+    owns: ["Finance", "Legal", "Compliance", "HR", "SOC 2"]
+    context: "Former COO at a Series B fintech. Operationally excellent. Owns the SOC 2 initiative."
+
+  - name: "Priya Sharma"
+    role: "VP Product"
+    reports_to: "Marcus Webb"
+    owns: ["Product roadmap", "Design", "User research", "Segment expansion"]
+    context: "Former PM lead at Intuit. Deep accounting platform expertise."
+
+teams:
+  - name: "Engineering"
+    lead: "Marcus Webb"
+    members: ["18 engineers across platform, AI, and frontend"]
+    focus: "Agent SDK launch, enterprise features, performance"
+
+  - name: "Sales"
+    lead: "Sarah Chen"
+    members: ["6 AEs, 3 SDRs, 2 SEs"]
+    focus: "Enterprise pipeline, segment expansion"
+
+  - name: "Customer Success"
+    lead: "Amy Torres"
+    members: ["4 CSMs, 2 support engineers"]
+    focus: "Onboarding, retention, expansion revenue"
+
+  - name: "Product"
+    lead: "Priya Sharma"
+    members: ["3 PMs, 2 designers"]
+    focus: "Agent SDK, manufacturing vertical, enterprise admin"
+
+key_relationships:
+  investors:
+    - "Sequoia Capital (Series B lead)"
+    - "Andreessen Horowitz (Series A lead)"
+    - "First Round Capital (Seed)"
+  advisors:
+    - "Jamie Smith — Partner, Example Ventures. Fintech platform advisory."
+    - "Alex Rivera — Ex-CFO, FinCloud. Enterprise SaaS scaling."
+  board_members:
+    - "Jordan Rivera — CEO (board seat)"
+    - "Sequoia Capital (board seat)"
+    - "Andreessen Horowitz (board observer)"
+    - "Jamie Smith — Independent director"

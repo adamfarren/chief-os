@@ -1,0 +1,21 @@
+# Chief of Staff — Organization Chart
+# Update this file with your team structure and key relationships.
+# Run /chief-context to view and update interactively.
+
+leadership:          # C-suite and VP-level leaders
+  - name: ""
+    role: ""         # e.g., "CEO", "VP Engineering"
+    reports_to: ""   # Who they report to
+    owns: []         # Initiatives, functions, or domains they own
+    context: ""      # Key things to know about this person
+
+teams:               # Functional teams
+  - name: ""         # e.g., "Engineering", "Sales", "Customer Success"
+    lead: ""         # Team lead name
+    members: []      # List of team members
+    focus: ""        # What this team is focused on right now
+
+key_relationships:
+  investors: []      # Current investors (name, firm, board seat Y/N)
+  advisors: []       # Advisors (name, domain, engagement level)
+  board_members: []  # Board members (name, firm/affiliation, role)

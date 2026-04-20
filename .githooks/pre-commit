@@ -1,0 +1,60 @@
+#!/bin/bash
+#
+# Pre-commit hook: last line of defense against proprietary content.
+# Scans staged changes for company-specific terms defined in .proprietary-terms.
+#
+# Install: git config core.hooksPath .githooks
+#
+
+set -euo pipefail
+
+# Proprietary term patterns live in a separate file (gitignored).
+# If the file doesn't exist, skip the check (other users won't have it).
+TERMS_FILE="$(cd "$(dirname "$0")/.." && pwd)/.proprietary-terms"
+
+if [[ ! -f "$TERMS_FILE" ]]; then
+  exit 0
+fi
+
+# Get the staged diff, excluding this hooks directory
+diff_content=$(git diff --cached --unified=0 -- ':!.githooks' ':!.proprietary-terms')
+
+if [[ -z "$diff_content" ]]; then
+  exit 0
+fi
+
+# Only check added lines (starting with +, excluding +++ headers)
+added_lines=$(echo "$diff_content" | grep -E '^\+[^+]' || true)
+
+if [[ -z "$added_lines" ]]; then
+  exit 0
+fi
+
+found=false
+while IFS= read -r pattern; do
+  # Skip empty lines and comments
+  [[ -z "$pattern" || "$pattern" == \#* ]] && continue
+
+  matches=$(echo "$added_lines" | grep -iE "$pattern" || true)
+  if [[ -n "$matches" ]]; then
+    if [[ "$found" == "false" ]]; then
+      echo ""
+      echo "BLOCKED: Proprietary content detected in staged changes"
+      echo "========================================================="
+      found=true
+    fi
+    echo ""
+    echo "Pattern: $pattern"
+    echo "$matches" | head -5
+  fi
+done < "$TERMS_FILE"
+
+if [[ "$found" == "true" ]]; then
+  echo ""
+  echo "Remove or genericize the flagged content before committing."
+  echo "See .proprietary-terms for the full pattern list."
+  echo ""
+  exit 1
+fi
+
+exit 0

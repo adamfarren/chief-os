@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/adamfarren/chief-os/security/advisories/new
+    about: Please report security issues privately, not as public issues. See SECURITY.md for details.
+  - name: Question or discussion
+    url: https://github.com/adamfarren/chief-os/discussions
+    about: For general questions, ideas, or showing off how you've forked Chief OS, open a discussion instead of an issue.

@@ -1,0 +1,72 @@
+# Test Company Context — Generic Sample Data
+# Used by all skill tests as the foundation context
+
+company:
+  name: "Meridian Ledger"
+  one_liner: "AI-powered accounting and financial close platform for mid-market businesses"
+  stage: "Series B, preparing Series C"
+
+metrics:
+  arr: "$12.5M"
+  arr_growth_yoy: "110%"
+  customers: "87"
+  burn_rate: "$750K/mo"
+  runway_months: "14"
+  last_updated: "2026-03-15"
+
+strategy:
+  annual_goals:
+    - name: "Hit $20M ARR"
+      dri: "Sarah Chen"
+      description: "Grow from $12.5M to $20M ARR through expansion and new logos"
+    - name: "Launch AI Agent Platform"
+      dri: "Marcus Webb"
+      description: "Ship the agent SDK and marketplace for third-party accounting workflows"
+    - name: "Expand into manufacturing and professional services"
+      dri: "Sarah Chen"
+      description: "Add two new customer segments beyond current e-commerce and SaaS focus"
+
+  initiatives:
+    - name: "Agent SDK"
+      dri: "Marcus Webb"
+      status: "on-track"
+      description: "Developer platform for building financial AI agents on our infrastructure"
+    - name: "Enterprise tier"
+      dri: "Sarah Chen"
+      status: "at-risk"
+      description: "Multi-entity pricing and admin features for 50+ finance team groups"
+    - name: "SOC 2 Type II"
+      dri: "Devon Park"
+      status: "on-track"
+      description: "Compliance certification needed for enterprise sales"
+
+product:
+  architecture: "Cloud-native SaaS. React frontend, Python/FastAPI backend, PostgreSQL, deployed on AWS. AI inference via Claude API."
+  key_products:
+    - "Ledger OS (core ledger + close automation)"
+    - "Agent SDK (developer platform)"
+    - "Customer Portal"
+  differentiators:
+    - "AI-native from day one — not bolted on"
+    - "Segment-specific workflows, not generic"
+    - "Agent extensibility — customers can build custom financial agents"
+
+positioning:
+  competitive_lanes:
+    - "vs. Legacy ERPs (NetSuite, Sage Intacct): modern architecture, AI-native, faster implementation"
+    - "vs. Vertical finance SaaS (Ramp, Brex): deeper financial controls, end-to-end close"
+    - "vs. AI accounting startups (Numeric, Campfire): full platform, not point solution"
+  key_narratives:
+    - "The month-end close is broken. The agent-powered ledger is next."
+    - "We don't sell software, we sell back 2 hours per controller per day."
+    - "Every segment deserves purpose-built intelligence, not generic templates."
+
+fundraising:
+  current_round: "Series C"
+  target_amount: "$40M"
+  status: "active"
+  key_metrics_for_investors:
+    - "110% YoY ARR growth"
+    - "130% net dollar retention"
+    - "87 customers, 40% multi-entity"
+    - "$145K average ACV"

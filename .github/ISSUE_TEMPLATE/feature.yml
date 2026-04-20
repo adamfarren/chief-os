@@ -1,0 +1,45 @@
+name: Feature request
+description: Suggest a new skill, a new capability in an existing skill, or a workflow improvement
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement. The best requests explain the workflow you're trying to support, not just the feature.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: What's the workflow you wish Chief OS supported that it currently doesn't?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would the ideal behavior look like?
+      description: A command, output shape, integration, or routing change. Don't worry about implementation details.
+    validations:
+      required: true
+
+  - type: input
+    id: skill-scope
+    attributes:
+      label: Which skill (or new skill) does this touch?
+      placeholder: chief-pipeline (existing) / chief-hiring (new)
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other ways you've tried to solve this (other skills, manual workflow, etc.)
+
+  - type: checkboxes
+    id: scope-check
+    attributes:
+      label: Scope check
+      options:
+        - label: This would be generally useful, not specific to one company's data or processes
+          required: true

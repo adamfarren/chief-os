@@ -1,0 +1,78 @@
+name: Bug report
+description: A skill behaves incorrectly, crashes, or produces wrong output
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please fill in as much as you can — reproductions are worth more than descriptions.
+
+        **Do not include real credentials, customer names, employee PII, or internal IDs** in this report. Redact or use synthetic examples.
+
+  - type: input
+    id: skill
+    attributes:
+      label: Which skill?
+      description: e.g. `chief-investor`, `company-update`, `whiteboard`, `chief` (router)
+      placeholder: chief-investor
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you run, and what went wrong?
+      placeholder: |
+        I ran `/chief-investor Sequoia` and the skill…
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps. Include the exact command or prompt you used.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Claude Code version, OS, any MCPs involved, and their connection state (connected / auth-expired / unreachable).
+      placeholder: |
+        - Claude Code: 1.x.x
+        - OS: macOS 14.x / Linux / Windows
+        - MCPs involved: Slack (connected), Notion (connected)
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Redacted transcript, error message, or Claude's final output. Wrap in triple backticks.
+      render: shell
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have redacted all credentials, customer names, and PII from this report
+          required: true
+        - label: I searched existing issues for duplicates
+          required: true
