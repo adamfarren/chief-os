@@ -56,9 +56,14 @@ When Figma MCP is available:
 - Follow-up email sequences
 - Feedback collection and NPS
 
+### Slide Decks
+For keynote, sponsor, or session decks, build directly in Google Slides using the `gws slides` CLI (Bash). Pair with `/chief-style` for brand-consistent colors, type, and layout.
+- Create: `gws slides presentations create --json '{"title":"<Event Name — YYYY>"}'`
+- Edit: `gws slides presentations batchUpdate --json '{"presentationId":"<id>","requests":[...]}'`
+
 ## Output
 
-Save creative briefs and agendas as markdown files via `/chief-memo` conventions.
+Save creative briefs and agendas as markdown files via `/chief-memo` conventions. Save slide decks as Google Slides presentations via `gws slides`.
 
 ## Rules
 

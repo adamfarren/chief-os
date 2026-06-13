@@ -45,6 +45,16 @@ Use `/chief-memo` for formatting conventions. The board memo follows this struct
 8. **Risks & Decisions** — Issues requiring board awareness or input
 9. **Asks** — Specific things we need from the board (introductions, approvals, guidance)
 
+## Output Formats
+
+- **Board memo** (default) — markdown via `/chief-memo` conventions.
+- **Board deck** — when the user asks for a deck/slides, build a Google Slides presentation directly with the `gws slides` CLI (Bash). Pair with `/chief-style` for brand-consistent colors, type, and layout. Typical flow:
+  1. Draft the section outline as a memo first (sections above).
+  2. Map each section to a slide (Executive Summary → Title + 3-bullet takeaway; Key Metrics Dashboard → table slide; Initiative Updates → one slide per initiative; etc.).
+  3. Create the file: `gws slides presentations create --json '{"title":"<Board Meeting YYYY-MM-DD>"}'`.
+  4. Populate slides: `gws slides presentations batchUpdate --json '{"presentationId":"<id>","requests":[...]}'`.
+  5. Share the resulting URL.
+
 ## Rules
 
 - Lead every section with the conclusion, then the supporting data
@@ -52,4 +62,4 @@ Use `/chief-memo` for formatting conventions. The board memo follows this struct
 - If a data source is unavailable, state what's missing and proceed with what's available
 - Include specific customer names, deal sizes, and dates — boards want specificity
 - Keep the full memo under 4 pages. Supporting data can go in appendices.
-- Use `/chief-memo` to write the actual output
+- Use `/chief-memo` to write the memo output; use `gws slides` for deck output.
