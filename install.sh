@@ -39,7 +39,6 @@ PUBLIC_SKILLS=(
   chief-roadmap
   claude-usage
   funnel
-  company-update
   customer-360
   whiteboard
 )
@@ -48,9 +47,10 @@ PUBLIC_SKILLS=(
 # to keep your filled-in local version instead of a symlink. When you add
 # company-specific data, move the skill from PUBLIC_SKILLS to OVERRIDE_SKILLS.
 OVERRIDE_SKILLS=(
-  chief-context  # Template: fill with your company data (strategy, org, voice)
-  chief-org      # Template: fill with your org roster
-  chief-style    # Template: replace example tokens with your brand's palette
+  chief-context   # Template: fill with your company data (strategy, org, voice)
+  chief-org       # Template: fill with your org roster
+  chief-style     # Template: replace example tokens with your brand's palette
+  company-update  # Template: fill placeholders (Notion DB UUIDs, channel IDs, workspace slug)
 )
 
 status_mode=false
