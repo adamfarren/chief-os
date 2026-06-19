@@ -130,6 +130,7 @@ Search Slack: `"go-live" OR "implementation" OR "onboarding" OR "expansion" OR "
 
 **Extract:**
 - Per-customer narrative updates — specific wins, blockers, milestones, and next steps for each active account. Generic lists are not useful.
+- **Status indicator prefixed on every customer name.** Lead each customer bullet with a colored emoji that signals their implementation health: 🟢 on track, 🟡 at risk, 🔴 off track / churn / detractor, ⏸ stalled. Pull the indicator from the WLM implementation-health rollup (on track / at risk / off track / not started / stalled) and cross-check against the Pylon `sentiment` field — when they conflict, the trailing-week sentiment wins. Format: `- 🟡 **Customer (Level) — headline.** body…`. Process / operational bullets that don't name a customer (e.g. PPP automation, Go Live Calendar updates) get no indicator. The reader should be able to scan the section and see the at-a-glance distribution of green / yellow / red.
 - Watch items — accounts with active risks or time-sensitive dependencies.
 - 30/60/90-day post go-live flags — call out any customers at these milestones explicitly. This is the window where adoption habits form and early churn risk concentrates.
 
@@ -155,7 +156,7 @@ Search Slack for: `"developer support" OR "support queue" OR "ticket"` for any s
 1. `mcp__pylon__search_issues({ created_after: "<window_start>T00:00:00Z", created_before: "<window_end>T00:00:00Z", limit: 100 })` — paginate via the returned cursor until you have the full window. The window matches the Support session's Tue→Tue or the weekly update's Mon→Fri; pick whichever the user asked for or, by default, mirror last week's update.
 2. Group the issues by `account_id`. The top accounts by volume drive the table.
 3. Resolve each top `account_id` with `mcp__pylon__get_account({ account: "<id>" })`. From the account object pull: `name`, `custom_fields.<status_field>` (Level), `custom_fields.sentiment`, `custom_fields.tickets_last_7_days`, `custom_fields.tickets_last_30_days`, `custom_fields.implementation_lead` (or `owner.name`).
-4. Build a top-customers table with Customer / Level / Tickets (7d) / Tickets (30d) / Sentiment / IM. Include the IM column so accountability is visible.
+4. Build a top-customers table with Customer / Level / Tickets (7d) / Tickets (30d) / Sentiment / IM. Include the IM column so accountability is visible. **Prefix the Customer cell with the same 🟢 / 🟡 / 🔴 / ⏸ status indicator used in the Customers & Implementation section** so a reader can cross-reference health at a glance (e.g. `🔴 Big Leap Health`). Theme bullets under the table get the same indicator prefix on the customer name.
 5. Add a "Themes" subsection: WoW direction on the top account, any spike worth context (e.g. batch enrollment forms ≠ regressions), L1 accounts in Frustrated sentiment, and any High Risk / Detractor accounts regardless of volume.
 6. Add a one-line **process note** at the bottom of the Support section flagging that the working-session metrics were unpopulated and naming the DRI without blame — e.g. "DRI for those metrics is [Support DRI]; flagging here so the gap doesn't recur." Do NOT attribute the gap to anyone's OOO unless you have direct evidence that the named DRI was out.
 
@@ -289,10 +290,10 @@ Keep it skimmable. No icons, no stylization. Plain structure.
 [**HubSpot-verified** MTD closed-won (names + amounts + dates), closed-lost worth flagging (post-mortem-level deals), named Walk to Close deals with amounts and close targets, partnership notes. Quarter progress vs. target. Pre-sale only — existing customers go to Customers & Implementation.]
 
 ## Customers & Implementation
-[Per-customer narratives — specific wins, blockers, next steps. Watch items. 30/60/90-day post go-live flags.]
+[Per-customer narratives — specific wins, blockers, next steps. **Each customer bullet prefixed with 🟢 / 🟡 / 🔴 / ⏸ status indicator.** Watch items. 30/60/90-day post go-live flags.]
 
 ## Support
-[Top accounts by volume table (Customer / Level / Tickets 7d / Tickets 30d / Sentiment / IM). Themes. Escalations. Bug prioritization. Developer support patterns. Process note if working-session metrics were empty.]
+[Top accounts by volume table (Customer / Level / Tickets 7d / Tickets 30d / Sentiment / IM) — **Customer cell prefixed with 🟢 / 🟡 / 🔴 / ⏸ matching the Customers & Implementation section.** Themes (also prefixed). Escalations. Bug prioritization. Developer support patterns. Process note if working-session metrics were empty.]
 
 ## Shoutouts
 [From WLM + Slack #announcements + Slack workspace search + Pylon customer-thank-yous + Plugin Scorecard external contributors + work-anniversaries. Real names, specific contributions, customer leaders included when they thanked us.]
