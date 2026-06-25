@@ -22,6 +22,7 @@ This skill assumes a few operational inputs unique to your workspace. Replace th
 | `<WORKSPACE_SLUG>` | Your Notion workspace slug (used in canonical page URLs) |
 | `<CEO_SLACK_USER_ID>` | Slack user ID of the CEO (for engagement queries) |
 | `<MARKETING_LEAD_SLACK_USER_ID>` | Slack user ID of the marketing lead curating the LinkedIn roundup |
+| `<CROSS_TEAM_CHANNELS>` | Allowlist of broad, cross-team Slack channels to scan for high-engagement threads. Exclude narrow / sensitive channels (HR, exec-private, financing, security-incident, small-group, DMs). |
 | `<STRATEGIC_CONTEXT_DOC>` | Path to your quarterly strategic context document |
 | `<TEAM_SHARED_CALENDAR_NAME>` | Name of the shared Google Calendar holding OOO + work-anniversaries |
 
@@ -79,7 +80,29 @@ Search Slack for messages from or mentioning the CEO (`from:<CEO_HANDLE>` or `<@
 
 Search Notion for recent meeting notes (past 7 days) mentioning the CEO or flagged as high-priority.
 
+Critically, do not limit this to threads the CEO drove. Cross-reference the High-Engagement Threads You Were Not In pass below: the single most important signal of the week is often a conversation the CEO missed, not one they led.
+
 **Extract:** The one issue, breakthrough, or risk that had the most leadership attention this week. This should connect directly to What Matters This Week.
+
+### High-Engagement Threads You Were Not In
+
+The weekly update has a blind spot: it leans on threads the CEO already engaged with (the "One Thing" and Shoutouts passes both key off CEO activity), so the most important conversations the CEO *missed* never surface. This pass finds the week's highest-engagement cross-team threads regardless of whether the CEO participated, then prioritizes the ones they did not.
+
+**Scope: cross-team and high-impact only.** Run this discovery ONLY across the broad, cross-team channels listed in `<CROSS_TEAM_CHANNELS>` (see Configuration). Do NOT pull from narrow or sensitive channels (HR / people-ops, exec / leadership-private, financing / fundraising, security-incident, 1-1 or small-group channels, DMs). A thread qualifies only if it is relevant to at least one full team.
+
+**Step 1: Cast a wide net** across the allowlisted channels for the window. Slack search has no "minimum replies" operator, so search on activity and read the candidates:
+
+```
+mcp__plugin_slack_slack__slack_search_public({ query: 'in:<channel> after:<monday> before:<saturday> is:thread', limit: 50 })
+```
+
+Repeat for each channel in `<CROSS_TEAM_CHANNELS>`.
+
+**Step 2: Rank by real engagement.** For each candidate thread, use `slack_read_thread` and score by reply count, number of distinct participants, and reactions on the parent or replies. A thread with 15 replies from 6 people across two teams outranks a 30-reply back-and-forth between two people. Engagement breadth (how many teams, how many distinct people) matters more than raw reply volume.
+
+**Step 3: Flag the CEO's blind spots.** Mark every high-engagement thread where the CEO (`<@<CEO_SLACK_USER_ID>>`) posted no message. These are the priority - surface the top 2-3 explicitly, because they are exactly what the CEO would otherwise miss.
+
+**Extract:** The top 2-3 high-engagement threads, feeding into "What Matters This Week" and "One Thing You Should Know." For each: a one-line summary, the teams involved, the engagement level (e.g. "23 replies, 8 people across two teams"), a note if the CEO was absent from the thread, and a link to the thread.
 
 ### Product & Engineering
 
