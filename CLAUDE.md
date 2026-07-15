@@ -36,6 +36,7 @@ Three layers:
 - `skills/company-update/` — Weekly company-wide update from live data sources
 - `skills/funnel/` — Lead funnel analysis: lead volume by source, lead→qualified→deal conversion, velocity
 - `skills/whiteboard/` — FigJam diagram generation: flowcharts, sequences, state machines, Gantt charts with brand colors
+- `skills/generic-kpi/` — Shareable SaaS KPI dashboard generator: formula-driven, fictional-data operating workbook (MRR/ARR, MAU, NRR, cash, A/R) built as a new Google Sheet
 
 ## Installation
 

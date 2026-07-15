@@ -4,7 +4,7 @@ An AI Chief of Staff for startup CEOs, built as a package of Claude Code skills.
 
 ## What This Is
 
-A system of 25 interconnected Claude Code skills that handle the operational work a Chief of Staff does: investor prep, board materials, memos, deal analysis, LinkedIn content, team performance reviews, competitive intelligence, fundraising coordination, customer escalation synthesis, customer 360 analysis, meeting digests, event planning, brand style guide, org intelligence, 1-1 direct report prep, and company context management.
+A system of 26 interconnected Claude Code skills that handle the operational work a Chief of Staff does: investor prep, board materials, memos, deal analysis, LinkedIn content, team performance reviews, competitive intelligence, fundraising coordination, customer escalation synthesis, customer 360 analysis, meeting digests, event planning, brand style guide, org intelligence, 1-1 direct report prep, and company context management.
 
 ## Architecture
 
@@ -71,6 +71,7 @@ Chief OS uses a three-layer architecture that separates generic skills (shareabl
 /company-update     ← Weekly company-wide update from Slack, HubSpot, Grain, Notion
 /funnel             ← Lead funnel analysis: lead volume by source, lead→qualified→deal conversion rates and velocity
 /whiteboard         ← FigJam diagrams with brand colors: flowcharts, sequences, state machines, Gantt
+/generic-kpi        ← Shareable SaaS KPI dashboard generator: builds a formula-driven, fictional-data operating workbook (MRR/ARR, MAU, NRR, cash, A/R) as a new Google Sheet
 ```
 
 ## Org Area → Source of Truth
@@ -253,6 +254,7 @@ abc123def456
 | `/company-update` | Weekly company-wide update: pulls Slack, HubSpot, Grain, and strategy context into a Notion page |
 | `/funnel` | Lead funnel analysis: lead volume by source, lead→qualified→deal conversion rates and velocity |
 | `/whiteboard` | Create diagrams in FigJam — flowcharts, sequence diagrams, state machines, and Gantt charts; reads brand colors from your style guide |
+| `/generic-kpi` | Generate a shareable SaaS KPI dashboard as a new Google Sheet: formula-driven MRR/ARR, MAU, NRR, cash, autopay, and A/R with 42 months of fictional data |
 
 ## MCP Server Configuration
 

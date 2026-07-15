@@ -10,6 +10,7 @@ This project uses [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) forma
 - `CONTRIBUTING.md`, `SECURITY.md`, `.github/` issue + PR templates, this changelog
 - `chief-style` is now a fork-and-customize template with a neutral example palette and a config-driven Figma fileKey (read from `chief-context/company.yaml` under `style.figma_file_key`)
 - `company-update` now reads workspace IDs (Notion database, parent page, Slack channel) from `chief-context/company.yaml` rather than hardcoding them
+- `generic-kpi` — Google Sheets generator that builds a shareable, fictional-data SaaS KPI dashboard (MRR/ARR, MAU, NRR, cash, autopay, A/R aging, per-customer detail across 42 months). Formula-driven off a data layer so it auto-recalculates on month-adds. Run with `bash ~/.claude/skills/generic-kpi/scripts/run.sh [seed] [n_customers]`
 
 ### Notes
 - Company-specific skill variants (partnership PRDs tied to a particular SDK, customer-360 flows wired to a specific product) are intentionally out of scope for the public package — fork and add your own if needed

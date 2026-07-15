@@ -40,6 +40,7 @@ PUBLIC_SKILLS=(
   claude-usage
   funnel
   customer-360
+  generic-kpi
   whiteboard
 )
 
