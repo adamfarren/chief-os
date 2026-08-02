@@ -32,11 +32,11 @@ Three layers:
 - `skills/chief-initiative/` — Business case and pro forma model for a new line of business
 - `skills/chief-org/` — Org intelligence from charts and headcount rosters
 - `skills/chief-roadmap/` — Engineering roadmap progress: Jira throughput by project and engineer
+- `skills/chief-workload/` — Per-employee hours-per-week estimator: Calendar + Slack + Pylon + GitHub + Jira triangulation with burnout-risk flags
 - `skills/claude-usage/` — Weekly Claude usage ingestion: Slack canvas → Google Sheets tab + tiered adoption analysis
 - `skills/company-update/` — Weekly company-wide update from live data sources
 - `skills/funnel/` — Lead funnel analysis: lead volume by source, lead→qualified→deal conversion, velocity
 - `skills/whiteboard/` — FigJam diagram generation: flowcharts, sequences, state machines, Gantt charts with brand colors
-- `skills/generic-kpi/` — Shareable SaaS KPI dashboard generator: formula-driven, fictional-data operating workbook (MRR/ARR, MAU, NRR, cash, A/R) built as a new Google Sheet
 
 ## Installation
 
@@ -48,13 +48,13 @@ Three layers:
 The install script:
 - Symlinks public skills into `~/.claude/skills/`
 - Backs up any existing real directories before replacing
-- Never overwrites `chief-context/`, `chief-style/`, or `chief-org/` (local overrides — customize per company)
+- Never overwrites `chief-context/`, `chief/`, `chief-style/`, or `chief-org/` (local overrides)
 - Seeds `chief-context/` with example data if it doesn't exist
 
 Then run `/chief-context` to configure your company details.
 
 ## Rules
 
-- No company-specific context, customer names, employee PII, or internal IDs should be added to this repo — keep those in your private fork or in the override skills
-- Skills in `install.sh` OVERRIDE_SKILLS array are maintained locally with company-specific modifications
+- No Canvas-specific context should be added to this repo
+- Skills in `install.sh` OVERRIDE_SKILLS array are maintained locally with proprietary modifications
 - When editing a symlinked skill, changes go directly into this repo's working tree

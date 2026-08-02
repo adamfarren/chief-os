@@ -3,8 +3,7 @@
 # Chief OS — Install / Sync Script
 #
 # Creates symlinks from ~/.claude/skills/ → this repo for all public skills.
-# Skips skills listed in OVERRIDE_SKILLS, which you may want to maintain locally
-# with company-specific modifications (brand tokens, org roster, context data, etc.).
+# Skips skills that have local overrides (Canvas-specific modifications).
 # Never touches private/proprietary skills that live only locally.
 #
 # Usage:
@@ -21,7 +20,6 @@ BACKUP_DIR="$SKILLS_DIR/.backups/$(date +%Y%m%d-%H%M%S)"
 # Public skills that get symlinked to the repo
 PUBLIC_SKILLS=(
   1-1
-  chief
   chief-1-1
   chief-board
   chief-initiative
@@ -34,24 +32,25 @@ PUBLIC_SKILLS=(
   chief-investor
   chief-linkedin
   chief-memo
+  chief-partnerships
   chief-performance
   chief-pipeline
   chief-roadmap
+  chief-workload
   claude-usage
   funnel
   customer-360
-  generic-kpi
   whiteboard
 )
 
-# Skills with local overrides — exist in repo as templates but you may want
-# to keep your filled-in local version instead of a symlink. When you add
-# company-specific data, move the skill from PUBLIC_SKILLS to OVERRIDE_SKILLS.
+# Skills with local overrides — exist in repo but are NOT symlinked
+# because the local version contains proprietary modifications
 OVERRIDE_SKILLS=(
-  chief-context   # Template: fill with your company data (strategy, org, voice)
-  chief-org       # Template: fill with your org roster
-  chief-style     # Template: replace example tokens with your brand's palette
-  company-update  # Template: fill placeholders (Notion DB UUIDs, channel IDs, workspace slug)
+  chief           # Router table references Canvas-specific skills
+  chief-style     # Contains Canvas Figma file key
+  chief-context   # Contains real company data (strategy, org, voice)
+  chief-org       # Contains real company roster and org chart data
+  company-update  # Local version has operational UUIDs (Notion DB, channel IDs, workspace slug)
 )
 
 status_mode=false

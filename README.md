@@ -4,7 +4,7 @@ An AI Chief of Staff for startup CEOs, built as a package of Claude Code skills.
 
 ## What This Is
 
-A system of 26 interconnected Claude Code skills that handle the operational work a Chief of Staff does: investor prep, board materials, memos, deal analysis, LinkedIn content, team performance reviews, competitive intelligence, fundraising coordination, customer escalation synthesis, customer 360 analysis, meeting digests, event planning, brand style guide, org intelligence, 1-1 direct report prep, and company context management.
+A system of 22 interconnected Claude Code skills that handle the operational work a Chief of Staff does: investor prep, board materials, memos, deal analysis, LinkedIn content, team performance reviews, competitive intelligence, fundraising coordination, customer escalation synthesis, customer 360 analysis, meeting digests, event planning, brand style guide, org intelligence, 1-1 direct report prep, and company context management.
 
 ## Architecture
 
@@ -64,14 +64,13 @@ Chief OS uses a three-layer architecture that separates generic skills (shareabl
 /chief-style        ← Brand style guide, design tokens, Figma integration
 /chief-initiative   ← Business case and pro forma model for a new line of business
 /chief-org          ← Org intelligence from charts and headcount rosters
-/chief-pipeline     ← CEO-level pipeline briefing with forecast
+/chief-partnerships ← Partner Follow-Up Memo — ~2-page memo after a first intro meeting, anchored on de-identified customer signal, with a named pilot customer and curated public docs for the partner's engineering lead
 /customer-360       ← Full 360-degree customer view across all services
 /chief-roadmap      ← Engineering roadmap progress: Jira throughput mapped to OKRs, by project and engineer
-/claude-usage       ← Weekly Claude usage ingestion: Slack canvas → Google Sheets + tiered adoption analysis
+/chief-workload     ← Per-employee hours-per-week estimator across Calendar, Slack, Pylon, GitHub, Jira with burnout-risk flags
 /company-update     ← Weekly company-wide update from Slack, HubSpot, Grain, Notion
 /funnel             ← Lead funnel analysis: lead volume by source, lead→qualified→deal conversion rates and velocity
 /whiteboard         ← FigJam diagrams with brand colors: flowcharts, sequences, state machines, Gantt
-/generic-kpi        ← Shareable SaaS KPI dashboard generator: builds a formula-driven, fictional-data operating workbook (MRR/ARR, MAU, NRR, cash, A/R) as a new Google Sheet
 ```
 
 ## Org Area → Source of Truth
@@ -80,11 +79,11 @@ Each org area has a DRI (Directly Responsible Individual) and a canonical tool t
 
 | Org Area | DRI | Source of Truth | MCP | Used By |
 |----------|-----|----------------|-----|---------|
-| **Sales & Revenue** | VP Sales | HubSpot | `mcp__hubspot__*` | pipeline, board, investor, fundraise, deal, escalation, customer-360 |
+| **Sales & Revenue** | VP Sales | HubSpot | `mcp__hubspot__*` | pipeline, board, investor, fundraise, deal, escalation, partnerships, customer-360 |
 | **Engineering** | CTO | Jira | `mcp__jira__*` | roadmap, board, escalation, customer-360 |
 | **Customer Success** | Head of CS | Pylon | `mcp__pylon__*` | escalation, board, customer-360 |
 | **People & Org** | CEO | Notion — Org Roster | `mcp__notion__*` | chief-org |
-| **Knowledge Base** | Everyone | Notion — Handbook | `mcp__notion__*` | board, competitive, escalation, memo, digest, context |
+| **Knowledge Base** | Everyone | Notion — Handbook | `mcp__notion__*` | board, competitive, escalation, memo, partnerships, digest, context |
 | **Customer Calls** | CS / Sales | Grain | `mcp__grain__*` | digest, company-update |
 | **Internal Comms** | Everyone | Slack | `mcp__plugin_slack_slack__*` | pipeline, digest, escalation, performance, linkedin, company-update |
 | **Design & Brand** | Design | Figma | `mcp__figma__*` | style |
@@ -108,9 +107,7 @@ The install script creates symlinks from `~/.claude/skills/` to the repo for all
 
 Chief OS needs three pieces of context to work. These live in `~/.claude/skills/chief-context/` — a local directory that is **never synced to the repo**.
 
-The install script seeds this directory with empty templates. Fill them in by running `/chief-context` in Claude Code, or edit the YAML files directly.
-
-> **Tip:** If you want to explore the system before filling in real data, copy the fictional Meridian Ledger examples from `examples/` into `~/.claude/skills/chief-context/`. See [`examples/README.md`](examples/README.md) for the exact commands.
+The install script seeds this directory with empty templates. Fill them in by running `/chief-context` in Claude Code, or edit the YAML files directly:
 
 **company.yaml** — Your company's identity and metrics:
 - Company name, stage, one-liner
@@ -163,6 +160,7 @@ Run `/chief` with any request, or invoke a specific skill directly:
 /chief-performance analyze this adoption data
 /chief-event creative brief for our user conference
 /chief-style what are our brand colors
+/chief-clinic clinic initiative status update
 /chief-org show me the org
 /chief-org who reports to the CTO
 /customer-360 pull everything on [customer name]
@@ -245,16 +243,15 @@ abc123def456
 | `-competitive` | Competitive intelligence, battle cards, win/loss analysis |
 | `-digest` | Daily digest of external customer/prospect meetings, posted to Slack |
 | `-style` | Brand style guide, design tokens, colors, component patterns; pulls fresh tokens from Figma |
-| `-initiative` | Business case and pro forma model for a new line of business |
+| `-clinic` | AI-native clinic initiative: financial model, milestones, agent capability map |
 | `-org` | Org intelligence: parse org charts and headcount rosters into people context; tracks contracted agencies as extended teams (separate from headcount); proposes Notion sync after any roster update |
-| `-pipeline` | CEO-level pipeline briefing with forecast, stage movement, and stuck-deal flags |
+| `-partnerships` | Write a Partner Follow-Up Memo after a first intro meeting: mine customer signal from meeting transcripts, name a pilot customer, curate public docs for the partner's engineering lead, publish to Notion |
 | `/customer-360` | Build a full 360-degree customer view across CRM, Slack, Jira, Notion, email, calendar, and web |
 | `/chief-roadmap` | Track engineering progress against the roadmap — Jira throughput by project and by engineer, with quarterly/monthly/2-week framing |
+| `/chief-workload` | Estimate one employee's hours/week across Calendar + Slack + Pylon + GitHub + Jira with burnout-risk flags and an optional draft manager DM |
 | `/claude-usage` | Pull weekly Claude usage canvas from Slack, write to Google Sheets, run tiered adoption analysis with coaching recommendations |
 | `/company-update` | Weekly company-wide update: pulls Slack, HubSpot, Grain, and strategy context into a Notion page |
-| `/funnel` | Lead funnel analysis: lead volume by source, lead→qualified→deal conversion rates and velocity |
 | `/whiteboard` | Create diagrams in FigJam — flowcharts, sequence diagrams, state machines, and Gantt charts; reads brand colors from your style guide |
-| `/generic-kpi` | Generate a shareable SaaS KPI dashboard as a new Google Sheet: formula-driven MRR/ARR, MAU, NRR, cash, autopay, and A/R with 42 months of fictional data |
 
 ## MCP Server Configuration
 
@@ -292,6 +289,7 @@ Skills call each other when needed:
 - `/chief-linkedin` reads from `/chief-context` (narratives, voice)
 - `/chief-style` provides brand tokens to any skill producing visual output (dashboards, presentations, UI)
 - `/whiteboard` reads from `/chief-style` (or `/style`) to apply brand colors to FigJam diagrams automatically
+- `/chief-partnerships` pulls from Gmail/Calendar (meeting confirmation), the partner's website (lightweight product research), Grain (customer signal vignettes), HubSpot + Pylon (pilot customer eligibility), and Canvas's public docs to build a share-ready follow-up memo
 - `/company-update` pulls from Slack (5 channel categories), HubSpot (pipeline snapshot), Grain (external meetings), and strategy context to produce the weekly update in Notion
 - All writing skills use `/chief-memo` conventions for consistent formatting
 
