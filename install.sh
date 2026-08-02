@@ -46,11 +46,15 @@ PUBLIC_SKILLS=(
 # Skills with local overrides — exist in repo but are NOT symlinked
 # because the local version contains proprietary modifications
 OVERRIDE_SKILLS=(
-  chief           # Router table references Canvas-specific skills
-  chief-style     # Contains Canvas Figma file key
+  chief           # Router table references company-specific skills
+  chief-style     # Contains a company-specific Figma file key
   chief-context   # Contains real company data (strategy, org, voice)
   chief-org       # Contains real company roster and org chart data
   company-update  # Local version has operational UUIDs (Notion DB, channel IDs, workspace slug)
+  customer-360    # Local version names company-specific tools + real customer slugs; repo is generic
+  chief-roadmap   # Local version references a company-specific roadmap + employees by name
+  funnel          # Local version references company-specific HubSpot config + lead-source values
+  1-1             # Local version references a company handbook page + employee first names in examples
 )
 
 status_mode=false
