@@ -19,7 +19,7 @@ Build a complete picture of a customer's relationship by searching every connect
 ## Input
 
 The user provides:
-- **Customer name** (required) — e.g., "Acme Retail", "thriving-center", "accomplish"
+- **Customer name** (required) — e.g., "Acme Retail", "harbor-health", "kestrel-clinics"
 - **Time range** (ask every time) — e.g., "last 30 days", "last 90 days", "since January", "all time"
 - **Focus area** (optional) — e.g., "billing issues", "onboarding", "technical problems", "full evaluation"
 

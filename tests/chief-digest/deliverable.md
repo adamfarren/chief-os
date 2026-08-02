@@ -16,9 +16,9 @@
 - *Mountain View Manufacturing* (customer) — Invoice approval workflow causing finance team friction; 2 controllers threatening to switch back to Sage if not fixed this sprint
 - *Lakeside Retail* (customer) — Billing module errors persisting after their ERP upgrade; finance team is escalating to their board if unresolved by Friday
 - *Pacific Software* (customer) — Despite positive calendar feedback, bank feed integration is still broken (Plaid API endpoint misconfigured); IT team remains unresponsive
-- *Doctronic* (customer) — Flagged a data model gap: foreign currency revaluation not supported, blocking their multi-entity consolidation workflow
+- *Redwood Systems* (customer) — Flagged a data model gap: foreign currency revaluation not supported, blocking their multi-entity consolidation workflow
 - *Verdant Finance* (prospect) — CTO expressed concern about cloud hosting costs; asked whether Meridian Ledger supports self-hosted deployment
-- *Brigade* (customer) — Bridge app sync issues resurfaced after their latest deploy; Jamie logged 4 support tickets in 2 days
+- *Hillcrest Manufacturing* (customer) — Bridge app sync issues resurfaced after their latest deploy; Chris logged 4 support tickets in 2 days
 
 :thought_balloon: *SENTIMENT PATTERNS*
 
@@ -27,4 +27,4 @@
 - *Verdant Finance* (prospect) — High technical engagement but cost sensitivity emerging. The pilot enthusiasm is genuine, but the hosting cost question suggests budget constraints that could stall the deal.
 - *NoHo Commerce* + *Summit Manufacturing* (customers) — Two separate customers independently cited the plugin marketplace as their top reason for staying on Meridian Ledger. Platform extensibility is becoming a retention driver.
 - *Sentinum Finance* (prospect) — Tone shifted from "exploring options" to "how do we get started." The holding company launch timeline is creating urgency on their side.
-- *Brigade* (customer) — Jamie's tone in the call was notably more frustrated than last month. The recurring Bridge sync issues are eroding trust despite the positive relationship with the CS team.
+- *Hillcrest Manufacturing* (customer) — Chris's tone in the call was notably more frustrated than last month. The recurring Bridge sync issues are eroding trust despite the positive relationship with the CS team.
