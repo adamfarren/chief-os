@@ -38,7 +38,6 @@ This skill assumes a few operational inputs unique to your workspace. Replace th
 ```
 ToolSearch({ query: "select:mcp__notion__notion-search,mcp__notion__notion-fetch,mcp__notion__notion-query-data-sources,mcp__notion__notion-create-pages,mcp__notion__notion-update-page,mcp__plugin_slack_slack__slack_search_public,mcp__plugin_slack_slack__slack_search_public_and_private,mcp__plugin_slack_slack__slack_search_channels,mcp__plugin_slack_slack__slack_send_message,mcp__plugin_slack_slack__slack_read_thread,mcp__plugin_slack_slack__slack_read_channel,mcp__pylon__search_issues,mcp__pylon__search_accounts,mcp__pylon__get_account,mcp__pylon__get_issue,mcp__hubspot__hubspot-search-objects,mcp__atlassian__searchJiraIssuesUsingJql,mcp__atlassian__getJiraIssue" })
 ```
-4. **Find last week's MSF Activity Report early.** *(Formerly "Plugin Scorecard" — renamed per WLM 7/28/2026.)* Plugin output for this section comes from the most recent activity report, not from ad-hoc searches. The report is a child page of the WLM and covers the prior Tuesday-to-Tuesday window — for a Friday weekly update, that means *last week's completed* report, never a partial week-in-progress. Search by both new and legacy names: `notion-search("MSF Activity Report")` and `notion-search("MSF Scorecard")` — some historical pages still use the old title. See the [Open Source Plugins](#open-source-plugins-msf-activity-report) section below.
 
 ## Notion Sources
 
@@ -87,6 +86,15 @@ slack_search_public_and_private({ query: "from:<@<CEO_SLACK_USER_ID>> after:<MON
 ```
 
 **When a memo is found, surface it as its own What Matters bullet** with (a) the memo title + link, (b) the universe/scope, (c) the top numeric finding, (d) the named owner-level actions for the coming week, and (e) an explicit line telling the reader to read it before the next WLM. Do NOT paraphrase the memo away — the CEO wrote it in a specific voice and the operating team needs the direct link.
+
+**Four rules on summarizing an internal memo for a company-wide audience.**
+
+1. **Soften an absolute internal verdict into its business consequence.** A memo written for the leadership team can say a bet "is not working"; the company-wide summary says it "is creating downstream negative impact." The update is read by everyone who built the thing being judged, and a flat verdict lands on them personally.
+2. **Never carry over a memo's list of customers used as negative examples.** Naming customers as cost or quality problems is fine in a private memo and is not fine in a document this widely read. Keep the finding, drop the roster.
+3. **Never editorialize a customer's request.** Report what the customer asked for and stop.
+4. **Sourcing caveats do not go in the body.** If you cannot confirm who wrote something, resolve it before publishing or raise it in the handoff. Never publish your own uncertainty as a sentence the whole company reads.
+
+**Render a numeric series as a table, not a comma list in prose.** Any bullet carrying more than about four numbers that share a unit wants to be a table.
 
 **Extract:** The 2-3 most important things in flight right now — active implementations with imminent milestones, pipeline deals with near-term close dates, product deadlines, plus any CEO-authored strategy memo circulated in-window. Do NOT surface board meeting dates, financing status, or fundraising updates. Frame everything as company priorities, not leadership priorities. (A CEO-authored memo is a company priority because it is setting the coming week's agenda — that's what makes it eligible here.)
 
@@ -281,7 +289,7 @@ Do NOT invent Jira status from PR titles — if you can't resolve a ticket ID ag
 
 The P&E section is written **for readers who are not in engineering.** The reader is a marketer, an IM, a salesperson, or the CEO — they want to understand what shipped and why it matters, not read a release-notes dump. Structure it as three subsections in this order:
 
-1. **Throughput snapshot (data summary at the top).** A small table with per-repo commits + PRs merged + WoW commit delta, followed by 2–3 one-line reads on what the numbers say about velocity and where headcount is going this week.
+1. **Releases (short prose, no table).** Do **not** publish a per-repo commits / PRs-merged / week-over-week table. It reads as a scoreboard to every non-engineer no matter how it is captioned, and the counts are consistently the least reliable numbers on the page. Publish instead: how many releases shipped to customers this week named by version and each verified released on your release-tracking board, the comparison to last week, what is cut but not yet shipped, and fleet state. You still pull commit and PR counts while researching, because they tell *you* where to look. They do not go in the document.
    - **Columns:** Repo · Commits · PRs merged · WoW commits.
    - **Rows:** one per material repo (studio, canvas, canvas-plugins, canvas-agents, canvas-hyperscribe), plus a `Total` row.
    - **WoW commits** = this week vs last week's number, with the absolute number and the direction (**+34** or -5). Bold the standouts.
@@ -294,6 +302,17 @@ The P&E section is written **for readers who are not in engineering.** The reade
 
 3. **In progress / to watch.** 3–5 bullets max. Named releases with what they contain in plain English, unresolved organizational items (e.g., ToU deliverable un-owned), and any data-quality caveats worth flagging (e.g., control-room 404 on `gh api` — coverage numbers not GitHub-verified this week).
 
+**Never name a person as the cause of a blocker, a delay, or an absence of output.** This update goes to the whole company. A named engineer attached to a blocker is read by every non-engineer as "this person is the problem," and it is almost never true — blockers are nearly always a vendor, a dependency, a staffing decision, a priority call, or a queue nobody owns.
+
+- **The `Blocked / diverted by` column names causes, not people.** Three shapes work, in order of preference: the customer-visible impact of the constraint ("volume of plugin issues is exceeding our capacity to troubleshoot, and eroding trust across key accounts"); the external dependency ("blocked on the vendor's multi-tenant scope"); or the plain ticket status with no editorializing ("all four migrations are in Blocked status"). What does not go here: a person's name as the cause, an employment-status aside, time off, or an unresolved internal process argument with a name attached. The Owner column already tells the reader who to ask.
+- **"Nothing here is blocked" is a legitimate value.** Write it when it is true rather than manufacturing a constraint to fill the cell.
+- **Never write "nothing merged" under a person's name without checking what they were carrying.** Run the open-PR and in-flight check (`gh search prs --author <handle> --updated <MON>..<SAT>`, plus your engineering board and daily digests) *before* writing a zero. Someone with a large open PR had a full week, and a ticket assigned to them that merged under another author still counts as their work landing. A blank is a sourcing failure about as often as it is a real zero, and publishing it as a zero is the more damaging error.
+- **Absence of merged code is a neutral fact about a workstream, never an implied criticism of its owner.** If an initiative did not move, lead with what the owner was doing instead.
+- **Never name an individual on aging-PR, hygiene, or backlog bullets.** Report the count and the shape. Your daily digest already routes these to the people who own them.
+- **Time off is never offered as a reason something did not happen.** State it in the OOO table and nowhere else.
+- **Never attach an employment-status qualifier to a person.** Whether someone is full-time, part-time, or a contractor is not the reader's business and always reads as an excuse or a demotion attached to a name. If capacity genuinely explains an outcome, say the team is under-resourced on that workstream. Do not say who.
+- **Read every sentence containing a person's name and ask whether it lands as praise, neutral fact, or criticism.** Criticism of a named individual does not belong in a company-wide update in any quantity. Take it to the team lead privately instead.
+
 **Merged vs released — the distinction is load-bearing.** *(Feedback from a prior update: a highlight said "N new capabilities landed" and a release manager corrected the framing — some of those features were still in regression testing and not officially released. Readers were about to assume features were live when they weren't.)* A merged PR is not the same as a released capability. A release must clear regression testing and go out via the release bot in `#announcements` before it is live to customers. In P&E highlights and the "Shipped this week" language:
 
 - **Use "merged" for PRs that hit `main`/`develop` but have not yet appeared in a `#announcements` release-bot post inside the reporting window.**
@@ -304,10 +323,10 @@ The P&E section is written **for readers who are not in engineering.** The reade
 **Never write a release-cadence interpretation without checking for outages and release-size.** *(Feedback from a prior update: a draft wrote "cadence dropped as engineering absorbed a big push" — wrong. A release manager corrected: an AWS outage had pushed a release back; the prior week's higher release count only shipped fast because those releases were small minor bug fixes; the current week's releases were materially larger and legitimately took longer.)* Release counts are a noisy signal for velocity because they conflate:
 
 1. **Release size** — 3 small bug-fix releases ship faster than 2 feature-heavy releases. Always ask what's *in* the releases before writing a cadence read.
-2. **External incidents** — AWS/infra outages, security incidents, and blocked deploys can push a release back independent of engineering capacity. Check `#announcements`, `#phi-incident-*` channels, and Reba's release notes for any release-blocker signal in the window before writing "cadence dropped because X."
+2. **External incidents** — AWS/infra outages, security incidents, and blocked deploys can push a release back independent of engineering capacity. Check `#announcements`, `#phi-incident-*` channels, and the release manager's notes for any release-blocker signal in the window before writing "cadence dropped because X."
 3. **Release-in-regression vs release-shipped** — a release cut on Friday that goes to customers Monday is legitimately a release in the reporting week for planning purposes, but not one that customers see this week. Count both, label them separately.
 
-Default framing: report the raw count (`N releases cut, M shipped to customers, K in regression`), then only offer an interpretation if you can rule out the above three. When in doubt, quote Reba directly rather than paraphrase.
+Default framing: report the raw count (`N releases cut, M shipped to customers, K in regression`), then only offer an interpretation if you can rule out the above three. When in doubt, quote the release manager directly rather than paraphrase.
 
 **Anti-patterns to avoid (all seen in earlier drafts and corrected out):**
 - Exhaustive `Shipped this week — <repo>` sections that list 15+ PRs each. Fold them into highlights or drop them.
@@ -316,7 +335,7 @@ Default framing: report the raw count (`N releases cut, M shipped to customers, 
 - Long PR-awaiting-review counts unless they are meaningfully up or down. Backlog counts are only useful when the direction is informative.
 - Renaming shipped work in vague terms ("platform improvements", "reliability wins"). Every highlight has a specific customer or capability tied to it.
 
-**Total target length for the P&E section: 400–600 words** (excluding the throughput table). If it's longer, cut highlights.
+**Total target length for the P&E section: 400–600 words** (excluding the Initiative coverage table). If it's longer, cut highlights.
 
 **When WLM and GitHub disagree.** Publish the GitHub numbers in-line and add a "WLM data-quality note" at the end of the section listing each disagreement (commit counts, misdated capabilities, misidentified authors). Loop in the WLM auto-summary owner so the upstream drift gets fixed instead of hand-corrected every week.
 
@@ -420,6 +439,8 @@ mcp__hubspot__hubspot-search-objects({
 
 - **Higher-stage qualified** (past initial working queue — typically `hs_pipeline_stage` = qualified-stage-id or a mid-funnel numeric stage): named list with dates.
 - **Working queue** (early qualified, still being engaged — typically the earliest numeric pipeline stage): named list with dates. If the volume is dominated by one owner (typical when one AE is handling inbound), name the owner.
+
+**Do not report on outbound if your business is inbound-led.** A `sales_outbound` count of zero is the expected state, not a finding, so never write it as a miss, a trend, or a data-quality item. Report the source mix only across the channels that actually drive your funnel, and drop the outbound row entirely rather than showing it at zero.
 
 **Step 5 — Add a one-line read.** Was the funnel healthy this week (net-new inbound flowing in, some already converting)? Is there a bottleneck (leads arriving but nothing progressing)? Cross-reference against last week's list — if the same names keep appearing in the working queue without moving, that's a signal.
 
@@ -540,9 +561,19 @@ Sourced live from this week's context — **not** from WLM or Support Session me
 
 1. **Pylon P0 tickets opened in the window** (`validated:p0-urgent` tag or explicit P0 language in title). Paginate `mcp__pylon__search_issues({ created_after, created_before, limit: 100 })` until the window is fully retrieved. Group by account. For every account with any open P0, name it, name the P0 titles, and mark whether it's still open or was closed same-day. Note the IM.
 2. **Pylon P1 tickets** (`validated:p1-high`) for the same window. Include only the ones that are still open at report time or that pattern with prior weeks (a customer with a recurring P1 shape).
-3. **Slack signal from #announcements, #team-engineering, and customer channels** — look for the language of concern this week: "blocker", "urgent", "critical", "on_hold", "waiting on", "still open", "regression". Also look for engineers flagging PRs "as a [customer] concern" or Reba-style CI/action failures affecting a specific customer.
+3. **Slack signal from #announcements, #team-engineering, and customer channels** — look for the language of concern this week: "blocker", "urgent", "critical", "on_hold", "waiting on", "still open", "regression". Also look for engineers flagging PRs "as a [customer] concern" or CI/action failures affecting a specific customer.
 4. **Bulk enrollment/volume waves** — batches of 20+ same-shape tickets that don't have severity but strain resolution capacity. Name the customer and the batch date.
 5. **Silence risks** — customers where IM has flagged in Slack or the customer channel that they see signals *not visible in Pylon*. These are the hardest to detect algorithmically; watch specifically for phrases like "I'm concerned about X but no tickets have been opened" or "quiet worries me."
+**Never build the pre-go-live list from the usage sheet alone — reconcile it against actual go-lives first.** The usage sheet's latest closed month is always at least a month stale, so "zero usage last month" and "has not gone live" are different statements for the whole first half of any month. Before publishing:
+
+1. **Get the actual go-live list for the current month**, defined as customers with their first genuine active patient on a production instance. Do not rely on a CRM `days_until_golive` field, which counts down to a *planned* date and stays negative long after a successful cutover.
+2. **Subtract every current-month go-live from the Pre Go-Live bucket** before counting or naming anyone.
+3. **Implementation status lags a cutover by days to weeks.** An account can be live and still flagged At Risk. When status and reality disagree, reality wins, and the stale flag becomes a note asking for a re-grade rather than a risk item.
+4. **Cross-check the bucket against your own Customer milestones section.** A customer appearing as a go-live in one section and pre-go-live in another means the update is wrong and a reader will catch it.
+5. **Read the sentiment field before characterizing any account.**
+
+**A go-live that lands late is a win, not a slip — write it that way.** Once a customer is actually live, the earlier slippage stops being the story and the delivery becomes it. Lead with what was delivered and who delivered it, name the engineers, and mention the prior risk framing only as distance travelled. Never lead a live customer with days-past-target, with a zero-usage count that only reflects patients not having arrived yet, or with an outstanding item from the original plan.
+
 6. **Pre-go-live sequence next 30 days** — list customers with go-live dates in the upcoming 4 weeks, with their days-out and Pylon `implementation_status`. This is where the H1 churn pattern kept surfacing; explicit visibility here helps.
 
 Filter spam from ticket counts: tags `🗑️ Spam Email`, `spam`, and email-sourced issues with no `account_id` do not count.
@@ -575,50 +606,11 @@ See [[feedback_graduated_customers_have_no_im]] for the standing rule.
 - Commercial-relationship work with an existing customer (e.g. existing customer's third-party-integration trial, data-exchange / interoperability work).
 - Partner relationships (vendors, channel partners, contractor orgs shipping plugins) — surface those in Sales under a "Partnership note" sub-bullet, not in Customer operations.
 
-### Open Source Plugins (MSF Activity Report)
+### Open source plugins — retired section
 
-*Renamed from "Plugin Scorecard" per WLM 2026-07-28. Search both names — historical pages retain the old title.*
+An open-source plugin scorecard is no longer a section of this update and is no longer a required source. Do not search for it, do not report on whether it ran, and do not flag a missing report as a data-quality gap. Plugin counts and per-builder target tracking are not what a company needs from a weekly update, and a scorecard that ranks named builders has the same defect as a commit-count table.
 
-Open source plugin output is a strategic priority and goes under "What Matters This Week" as its own bullet. The source is the most recent **MSF Activity Report** — a Notion page that lives as a child of the WLM (and under the parent database `MSF plugin snapshots` at `collection://<MSF_SNAPSHOTS_COLLECTION_ID>`). Do **not** query an ad-hoc internal agent for this section; the report already has the authoritative deduped data with target tracking, customer linkage (via a Jira board custom field), and install footprint from your instance-tracker.
-
-**Critical timing rule:** Always pull from **last week's completed report** (the Tue → Tue window that ends *before* this week's Monday), never a partial in-progress week. For a Friday update covering Mon–Fri, that means the report whose end date is the prior Tuesday (e.g. for an update written Fri 2026-05-15, pull the 2026-05-05 → 2026-05-12 report).
-
-**Backup runner required.** The report has historically had a single-DRI dependency — for one prior window it did not run at all because the owner was OOO. Confirm before the week starts that either the owner or a named backup is running the report; if neither is available, escalate to a leadership backup and note the gap in "Data hygiene" so the reader knows a section is absent.
-
-**Step 1 — Find the latest MSF Activity Report.** Search Notion under BOTH names:
-
-```
-notion-search("MSF Activity Report")
-notion-search("MSF Scorecard")
-```
-
-Results are sorted by recency; take the most recent one whose end date is ≤ this past Monday. The title pattern is `MSF Activity Report - YYYY-MM-DD → YYYY-MM-DD` (or legacy `MSF Scorecard - ...` / `Plugin Scorecard - ...`).
-
-**Step 2 — Fetch the page** with `notion-fetch` using the returned ID.
-
-**Step 3 — Extract three things from the page:**
-
-1. **Headline numbers** — total plugins from the customer-facing builder cohort, total engineering plugins, target vs. actual, and how many people hit target on each team.
-2. **Plugin inventory table** — name, author, description, repo target, and the "who benefits" column. The inventory is the right level of detail for the weekly update; do not list every PR.
-3. **External contributors** — call out non-employee builders separately (community PRs, contractor orgs). Their plugins count toward open-source totals but not toward team targets.
-
-**Step 4 — Format the bullet for "What Matters This Week":**
-
-Lead with the headline numbers, then list a few standout plugins with author attribution. Do not paste the entire inventory into "What Matters" — that's too much for a top-of-update bullet. The full inventory belongs in the Product & Engineering section if it's worth keeping; otherwise omit.
-
-Example format:
-
-```
-- **Plugin Scorecard (last week, MM/DD → MM/DD).** N unique plugins from M of [team size] customer-facing builders hit (target 1/week); K engineering plugins from J of [team size] engineers hit (target 0.5/week each = [target]/week team). Standouts this week:
-  - `plugin_name_1` — Author — one-line "what it does + who it's for"
-  - `plugin_name_2` — Author — one-line
-  - ...
-  Plus N external contributions from [name] (not on team). Misses worth flagging by name if there's a pattern; otherwise leave individual misses out of the company-wide update.
-```
-
-If the scorecard shows 0 new plugins from either cohort, surface that explicitly — it's a leading indicator, not a thing to bury.
-
-**Attribution rule:** Use real first names from the scorecard's PERSON column, not GitHub handles. The team should recognize themselves.
+Plugin activity still belongs in the update when it is customer-visible. Route it through the ordinary channels: a plugin that shipped to a named customer's production instance is a **Customer milestone**, a plugin capability that unlocks other people's work is a **P&E highlight**, and trial-fleet plugin rollouts come from the Weekly Marketing Snapshot's own plugin-activity block inside **Sales & Pipeline**.
 
 ### Company on LinkedIn This Week
 
@@ -653,7 +645,7 @@ If the marketing lead didn't post a roundup this week (OOO, no posts to highligh
 
 **Cross-lane rule.** When one person shows up meaningfully in two lanes (e.g., an engineer shipping code AND acting as IM for a customer through a hot P0 week), name them in *both* lanes with clear labels ("P&E lane" / "Customer-facing lane") — do not choose one. Different readers care about different halves of the same week.
 
-The WLM is the **starting point**, not the only source. The richer shoutouts come from triangulating across WLM + Slack + customer channels + Pylon customer-thank-yous + the MSF Activity Report + the Weekly Marketing Snapshot. Pull from all of these, dedupe, and lean toward specific named contributions over generic team thanks.
+The WLM is the **starting point**, not the only source. The richer shoutouts come from triangulating across WLM + Slack + customer channels + Pylon customer-thank-yous + the Weekly Marketing Snapshot. Pull from all of these, dedupe, and lean toward specific named contributions over generic team thanks.
 
 **Sources to combine:**
 
