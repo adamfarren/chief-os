@@ -70,6 +70,7 @@ Chief OS uses a three-layer architecture that separates generic skills (shareabl
 /chief-workload     ← Per-employee hours-per-week estimator across Calendar, Slack, Pylon, GitHub, Jira with burnout-risk flags
 /company-update     ← Weekly company-wide update from Slack, HubSpot, Grain, Notion
 /funnel             ← Lead funnel analysis: lead volume by source, lead→qualified→deal conversion rates and velocity
+/unslop             ← Audit a draft for AI writing tells and rewrite it; --setup builds your personal rules file
 /whiteboard         ← FigJam diagrams with brand colors: flowcharts, sequences, state machines, Gantt
 ```
 
@@ -251,6 +252,7 @@ abc123def456
 | `/chief-workload` | Estimate one employee's hours/week across Calendar + Slack + Pylon + GitHub + Jira with burnout-risk flags and an optional draft manager DM |
 | `/claude-usage` | Pull weekly Claude usage canvas from Slack, write to Google Sheets, run tiered adoption analysis with coaching recommendations |
 | `/company-update` | Weekly company-wide update: pulls Slack, HubSpot, Grain, and strategy context into a Notion page |
+| `/unslop` | Audit a draft for AI writing tells and return a violation table plus a rewrite; `--setup` mines your real writing samples to build `~/.claude/anti-ai-writing-style.md` and wire the `CLAUDE.md` import. The default ruleset it ships with is also readable standalone at [`anti-ai-writing-style.md`](anti-ai-writing-style.md) |
 | `/whiteboard` | Create diagrams in FigJam — flowcharts, sequence diagrams, state machines, and Gantt charts; reads brand colors from your style guide |
 
 ## MCP Server Configuration

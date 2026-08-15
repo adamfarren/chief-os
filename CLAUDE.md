@@ -36,6 +36,7 @@ Three layers:
 - `skills/claude-usage/` — Weekly Claude usage ingestion: Slack canvas → Google Sheets tab + tiered adoption analysis
 - `skills/company-update/` — Weekly company-wide update from live data sources
 - `skills/funnel/` — Lead funnel analysis: lead volume by source, lead→qualified→deal conversion, velocity
+- `skills/unslop/` — Audit a draft for AI writing tells and rewrite it, or build a personal anti-AI style ruleset from real writing samples
 - `skills/whiteboard/` — FigJam diagram generation: flowcharts, sequences, state machines, Gantt charts with brand colors
 
 ## Installation

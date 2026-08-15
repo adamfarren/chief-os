@@ -42,6 +42,7 @@ All tests use the same fictional company context in `test-context/`:
 | claude-usage | Weekly usage ingestion: Slack canvas → Sheets tab + tiered adoption analysis (12 engineers, 6 weeks, Horizon Health) | A |
 | company-update | Weekly company-wide update (Horizon Health, 4/13–4/17/2026): Notion SQL meeting query, Pylon fallback for empty Support tables, plugin scorecard, status-indicator prefixed customer narratives, LinkedIn roundup, OOO coverage flags | A |
 | funnel | 45-day lead funnel comparison: lead volume, qualified conversion (activity + cohort views), qualified→deal rate, source breakdown | A |
+| unslop | (1) Audit a slop-heavy Agent SDK announcement: 16 planted violations, quoted customer material left untouched, no fabricated number for an unfixable vague claim; (2) setup mode refuses a 4-sample voice profile | A |
 
 ## Common Strengths
 

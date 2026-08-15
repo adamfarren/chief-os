@@ -10,6 +10,8 @@ This project uses [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) forma
 - `CONTRIBUTING.md`, `SECURITY.md`, `.github/` issue + PR templates, this changelog
 - `chief-style` is now a fork-and-customize template with a neutral example palette and a config-driven Figma fileKey (read from `chief-context/company.yaml` under `style.figma_file_key`)
 - `company-update` now reads workspace IDs (Notion database, parent page, Slack channel) from `chief-context/company.yaml` rather than hardcoding them
+- `unslop` — audits a draft for AI writing tells (banned words, fragments, colon-fragments, bold lead-ins, rule-of-three, AI-cadence connectors) and returns a violation table plus a rewrite. `--setup` mines your real writing samples to generate `~/.claude/anti-ai-writing-style.md` and wire the `CLAUDE.md` import. Leaves quoted source material untouched and refuses to invent a specific when a vague claim has no fix
+- `anti-ai-writing-style.md` at the repo root — the standalone ruleset `unslop` falls back to, readable and copyable without installing anything
 - `generic-kpi` — Google Sheets generator that builds a shareable, fictional-data SaaS KPI dashboard (MRR/ARR, MAU, NRR, cash, autopay, A/R aging, per-customer detail across 42 months). Formula-driven off a data layer so it auto-recalculates on month-adds. Run with `bash ~/.claude/skills/generic-kpi/scripts/run.sh [seed] [n_customers]`
 
 ### Notes
