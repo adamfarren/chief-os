@@ -36,7 +36,7 @@ Edit SKILL.md files in `skills/<skill-name>/`. Changes go directly to the repo w
 3. Add a row to the router table in `skills/chief/SKILL.md` (`## Available Skills`).
 4. Add a routing rule to the same file's `## Routing Logic` section.
 5. Add a short description to `README.md` under the skill tree and the appropriate capability section.
-6. Add a test scenario to `tests/<skill-name>/` with `deliverable.md` + `analysis.md`, using the fictional Meridian Ledger context.
+6. Add a test scenario to `tests/<skill-name>/` with `deliverable.md` + `analysis.md`, using the fictional test context in `tests/test-context/` (Horizon Health).
 7. Update `tests/README.md` with your test entry.
 
 ## SKILL.md frontmatter contract
@@ -55,6 +55,8 @@ Each skill has a test directory under `tests/<skill-name>/` with:
 
 - `deliverable.md` — the output the skill produces with the fictional context
 - `analysis.md` — success criteria and grade
+
+The repo carries two unrelated fictional companies and they are not interchangeable. Skill tests use **Horizon Health** from `tests/test-context/`, while `examples/` uses **Meridian Ledger** to show the shape of a filled-in `chief-context/`. Write new tests against Horizon Health so they match the other suites.
 
 Re-run tests after significant changes by following `tests/README.md`.
 

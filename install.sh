@@ -17,7 +17,9 @@ REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$HOME/.claude/skills"
 BACKUP_DIR="$SKILLS_DIR/.backups/$(date +%Y%m%d-%H%M%S)"
 
-# Public skills that get symlinked to the repo
+# Public skills that get symlinked to the repo.
+# A name listed in OVERRIDE_SKILLS below is skipped here, so a skill may safely
+# appear in both lists: the override always wins.
 PUBLIC_SKILLS=(
   1-1
   chief-1-1
@@ -45,7 +47,10 @@ PUBLIC_SKILLS=(
 )
 
 # Skills with local overrides — exist in repo but are NOT symlinked
-# because the local version contains proprietary modifications
+# because the local version contains proprietary modifications.
+# This list takes precedence over PUBLIC_SKILLS whenever a local version exists:
+# a real directory here is never replaced and never backed up. If no local version
+# exists (a fresh clone), the repo copy is linked so the skill still works.
 OVERRIDE_SKILLS=(
   chief           # Router table references company-specific skills
   chief-style     # Contains a company-specific Figma file key
@@ -58,6 +63,16 @@ OVERRIDE_SKILLS=(
   1-1             # Local version references a company handbook page + employee first names in examples
 )
 
+# OVERRIDE_SKILLS takes precedence over PUBLIC_SKILLS. Returns 0 when the skill
+# is overridden locally and must not be touched.
+is_override() {
+  local needle="$1" s
+  for s in "${OVERRIDE_SKILLS[@]}"; do
+    [[ "$needle" == "$s" ]] && return 0
+  done
+  return 1
+}
+
 status_mode=false
 if [[ "${1:-}" == "--status" ]]; then
   status_mode=true
@@ -69,6 +84,7 @@ if $status_mode; then
   echo ""
   echo "Symlinked (public → repo):"
   for skill in "${PUBLIC_SKILLS[@]}"; do
+    is_override "$skill" && continue
     target="$SKILLS_DIR/$skill"
     if [[ -L "$target" ]]; then
       echo "  ✓ $skill → $(readlink "$target")"
@@ -86,6 +102,7 @@ if $status_mode; then
       echo "  ✓ $skill (local override active)"
     elif [[ -L "$target" ]]; then
       echo "  ! $skill (symlinked — should be a local override)"
+      echo "      your local version was displaced by an earlier install; restore it from $SKILLS_DIR/.backups/"
     else
       echo "  - $skill (not installed)"
     fi
@@ -118,6 +135,8 @@ mkdir -p "$SKILLS_DIR"
 linked=0
 skipped=0
 backed_up=0
+overridden=0
+displaced=0
 
 for skill in "${PUBLIC_SKILLS[@]}"; do
   source="$REPO_DIR/skills/$skill"
@@ -125,6 +144,27 @@ for skill in "${PUBLIC_SKILLS[@]}"; do
 
   if [[ ! -d "$source" ]]; then
     echo "  WARN: $skill not found in repo, skipping"
+    continue
+  fi
+
+  # Never displace a locally overridden skill, even if it is also in PUBLIC_SKILLS.
+  # An override only applies when a local version actually exists, so a fresh clone
+  # still gets the repo copy rather than an empty slot.
+  if is_override "$skill"; then
+    if [[ -L "$target" ]]; then
+      echo "  WARN: $skill is a local override but is currently a symlink."
+      echo "        An earlier install displaced your local version. Restore it with:"
+      echo "          rm $target && mv $SKILLS_DIR/.backups/<timestamp>/$skill $target"
+      ((displaced++))
+      continue
+    fi
+    if [[ -d "$target" ]]; then
+      ((overridden++))
+      continue
+    fi
+    ln -s "$source" "$target"
+    echo "  Linked $skill (repo version — replace it with a real directory to override locally)"
+    ((linked++))
     continue
   fi
 
@@ -176,7 +216,10 @@ if [[ -f "$HOOK_SRC" ]]; then
 fi
 
 echo ""
-echo "Done: $linked linked, $skipped already current, $backed_up backed up"
+echo "Done: $linked linked, $skipped already current, $backed_up backed up, $overridden left as local overrides"
+if [[ $displaced -gt 0 ]]; then
+  echo "WARNING: $displaced override skill(s) are symlinked and need restoring from backups (see above)"
+fi
 if [[ $backed_up -gt 0 ]]; then
   echo "Backups: $BACKUP_DIR"
 fi
